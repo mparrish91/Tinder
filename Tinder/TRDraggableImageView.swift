@@ -36,7 +36,7 @@ class TRDraggableImageView: UIView {
     
     @IBAction func onPan(_ panGestureRecognizer: UIPanGestureRecognizer) {
         let point = panGestureRecognizer.location(in: self)
-        let xTranslation = panGestureRecognizer.translation(in: self).x
+        var xTranslation = panGestureRecognizer.translation(in: self).x
         var velocity : CGPoint = panGestureRecognizer.velocity(in: self)
         let angle  = xTranslation.degreesToRadians
         let reverseAngle  = xTranslation.degreesToRadians * -1
@@ -88,6 +88,18 @@ class TRDraggableImageView: UIView {
                 }
 
             }
+            
+            if xTranslation > 50
+            {
+                UIView.animate(withDuration: 0.8, animations: {
+                    self.profilePhotoImageView.center = CGPoint(x: self.profiePhotoImageViewOriginalCenter.x + 200, y: self.profiePhotoImageViewOriginalCenter.y)
+                })
+            }
+            else if xTranslation < -50{
+                UIView.animate(withDuration: 0.8, animations: {
+                    self.profilePhotoImageView.center = CGPoint(x: self.profiePhotoImageViewOriginalCenter.x - 200, y: self.profiePhotoImageViewOriginalCenter.y)
+                })
+            }
 
             
         case.ended:
@@ -100,8 +112,7 @@ class TRDraggableImageView: UIView {
             
         }
     }
-
-
+    
 
 }
 
