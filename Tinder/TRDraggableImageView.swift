@@ -39,27 +39,53 @@ class TRDraggableImageView: UIView {
         let xTranslation = panGestureRecognizer.translation(in: self).x
         var velocity : CGPoint = panGestureRecognizer.velocity(in: self)
         let angle  = xTranslation.degreesToRadians
+        let reverseAngle  = xTranslation.degreesToRadians * -1
+
         switch panGestureRecognizer.state {
             
         case .began:
             
+            profiePhotoImageViewOriginalCenter = profilePhotoImageView.center
+
+            
+          
+        case .changed:
+            
             if point.y > self.frame.height/2
             {
-//                profiePhotoImageViewOriginalCenter = profilePhotoImageView.center
                 print("point is in lower half")
-
-            }
-        case .changed:
-            if velocity.x > 0
-            {
-                profilePhotoImageView.transform = CGAffineTransform(rotationAngle: CGFloat(angle))
-                profilePhotoImageView.center = CGPoint(x: profiePhotoImageViewOriginalCenter.x + xTranslation, y: profiePhotoImageViewOriginalCenter.y)
-
+                
+                
+                if velocity.x > 0
+                {
+                    profilePhotoImageView.transform = CGAffineTransform(rotationAngle: CGFloat(reverseAngle))
+                    profilePhotoImageView.center = CGPoint(x: profiePhotoImageViewOriginalCenter.x + xTranslation, y: profiePhotoImageViewOriginalCenter.y)
+                    
+                }
+                else
+                {
+                    profilePhotoImageView.transform = CGAffineTransform(rotationAngle: CGFloat(reverseAngle))
+                    profilePhotoImageView.center = CGPoint(x: profiePhotoImageViewOriginalCenter.x + xTranslation, y: profiePhotoImageViewOriginalCenter.y)
+                    
+                }
             }
             else
             {
-                profilePhotoImageView.transform = CGAffineTransform(rotationAngle: CGFloat(angle))
-                profilePhotoImageView.center = CGPoint(x: profiePhotoImageViewOriginalCenter.x + xTranslation, y: profiePhotoImageViewOriginalCenter.y)
+                print("point is in upper half")
+                
+                
+                if velocity.x > 0
+                {
+                    profilePhotoImageView.transform = CGAffineTransform(rotationAngle: CGFloat(angle))
+                    profilePhotoImageView.center = CGPoint(x: profiePhotoImageViewOriginalCenter.x + xTranslation, y: profiePhotoImageViewOriginalCenter.y)
+                    
+                }
+                else
+                {
+                    profilePhotoImageView.transform = CGAffineTransform(rotationAngle: CGFloat(angle))
+                    profilePhotoImageView.center = CGPoint(x: profiePhotoImageViewOriginalCenter.x + xTranslation, y: profiePhotoImageViewOriginalCenter.y)
+                    
+                }
 
             }
 
