@@ -37,15 +37,37 @@ class TRDraggableImageView: UIView {
     @IBAction func onPan(_ panGestureRecognizer: UIPanGestureRecognizer) {
         let point = panGestureRecognizer.location(in: self)
         let xTranslation = panGestureRecognizer.translation(in: self).x
-
+        var velocity : CGPoint = panGestureRecognizer.velocity(in: self)
+        let angle  = xTranslation.degreesToRadians
         switch panGestureRecognizer.state {
             
         case .began:
-            profiePhotoImageViewOriginalCenter = profilePhotoImageView.center
-        case .changed:
-            profilePhotoImageView.center = CGPoint(x: profiePhotoImageViewOriginalCenter.x + xTranslation, y: profiePhotoImageViewOriginalCenter.y)
             
-        case.ended: break
+            if point.y > self.frame.height/2
+            {
+//                profiePhotoImageViewOriginalCenter = profilePhotoImageView.center
+                print("point is in lower half")
+
+            }
+        case .changed:
+            if velocity.x > 0
+            {
+                profilePhotoImageView.transform = CGAffineTransform(rotationAngle: CGFloat(angle))
+                profilePhotoImageView.center = CGPoint(x: profiePhotoImageViewOriginalCenter.x + xTranslation, y: profiePhotoImageViewOriginalCenter.y)
+
+            }
+            else
+            {
+                profilePhotoImageView.transform = CGAffineTransform(rotationAngle: CGFloat(angle))
+                profilePhotoImageView.center = CGPoint(x: profiePhotoImageViewOriginalCenter.x + xTranslation, y: profiePhotoImageViewOriginalCenter.y)
+
+            }
+
+            
+        case.ended:
+            profilePhotoImageView.transform = CGAffineTransform(rotationAngle: CGFloat(0.degreesToRadians))
+            profilePhotoImageView.center = profiePhotoImageViewOriginalCenter
+
             
         default:
             return
@@ -54,4 +76,16 @@ class TRDraggableImageView: UIView {
     }
 
 
+
+}
+
+
+
+extension Int {
+    var degreesToRadians: Double { return Double(self) * .pi / 180 }
+    var radiansToDegrees: Double { return Double(self) * 180 / .pi }
+}
+extension FloatingPoint {
+    var degreesToRadians: Self { return self * .pi / 180 }
+    var radiansToDegrees: Self { return self * 180 / .pi }
 }
