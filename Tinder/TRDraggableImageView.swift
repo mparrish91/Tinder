@@ -139,8 +139,7 @@ class TRDraggableImageView: UIView {
             
             // Rotate
             let rotation = rotationDirection * (translation.x - lastTranslation.x).degreesToRadians
-//            profilePhotoImageView.transform = profilePhotoImageView.transform.rotated(by: rotation)
-            profilePhotoImageView.transform = CGAffineTransform(rotationAngle: CGFloat(angle))
+            profilePhotoImageView.transform = profilePhotoImageView.transform.rotated(by: rotation)
 
             lastTranslation = translation
             
