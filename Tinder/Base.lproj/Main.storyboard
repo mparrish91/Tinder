@@ -21,15 +21,19 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="action_buttons" id="SrW-te-vlm">
-                                <rect key="frame" x="0.0" y="460" width="320" height="108"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
                             <view contentMode="scaleToFill" misplaced="YES" id="mpH-Zo-frv" customClass="TRDraggableImageView" customModule="Tinder" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="137" width="320" height="295"/>
+                                <rect key="frame" x="0.0" y="108" width="320" height="295"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="hug-GR-vyF" appends="YES" id="J78-xf-dk4"/>
+                                </connections>
                             </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="action_buttons" id="SrW-te-vlm">
+                                <rect key="frame" x="0.0" y="433" width="320" height="108"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
@@ -38,6 +42,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="hug-GR-vyF">
+                    <connections>
+                        <action selector="onProfilePhotoTapped:" destination="BYZ-38-t0r" id="A8g-3K-wHg"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="87" y="154"/>
         </scene>

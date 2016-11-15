@@ -24,6 +24,12 @@ class TRCardsViewController: UIViewController {
 
     }
 
+    @IBAction func onProfilePhotoTapped(_ sender: UITapGestureRecognizer) {
+        let profileVC = TRProfileViewController(nibName: "TRProfileViewController", bundle: nil)
+        present(profileVC, animated: true, completion: nil)
+
+        
+    }
 
 
 }

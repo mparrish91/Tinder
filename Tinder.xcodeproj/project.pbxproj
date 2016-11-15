@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		420F8B5B1DDB7DCA005D858D /* TRProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420F8B591DDB7DCA005D858D /* TRProfileViewController.swift */; };
+		420F8B5C1DDB7DCA005D858D /* TRProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 420F8B5A1DDB7DCA005D858D /* TRProfileViewController.xib */; };
 		42A61C921DD7BE7F009CA6E6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A61C911DD7BE7F009CA6E6 /* AppDelegate.swift */; };
 		42A61C971DD7BE7F009CA6E6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42A61C951DD7BE7F009CA6E6 /* Main.storyboard */; };
 		42A61C991DD7BE7F009CA6E6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 42A61C981DD7BE7F009CA6E6 /* Assets.xcassets */; };
@@ -17,6 +19,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		420F8B591DDB7DCA005D858D /* TRProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TRProfileViewController.swift; sourceTree = "<group>"; };
+		420F8B5A1DDB7DCA005D858D /* TRProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TRProfileViewController.xib; sourceTree = "<group>"; };
 		42A61C8E1DD7BE7F009CA6E6 /* Tinder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tinder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		42A61C911DD7BE7F009CA6E6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		42A61C961DD7BE7F009CA6E6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -63,6 +67,8 @@
 				42A61C911DD7BE7F009CA6E6 /* AppDelegate.swift */,
 				42A61CA91DD83BF5009CA6E6 /* TRDraggableImageView.xib */,
 				42A61C951DD7BE7F009CA6E6 /* Main.storyboard */,
+				420F8B591DDB7DCA005D858D /* TRProfileViewController.swift */,
+				420F8B5A1DDB7DCA005D858D /* TRProfileViewController.xib */,
 				42A61C981DD7BE7F009CA6E6 /* Assets.xcassets */,
 				42A61C9A1DD7BE7F009CA6E6 /* LaunchScreen.storyboard */,
 				42A61C9D1DD7BE7F009CA6E6 /* Info.plist */,
@@ -132,6 +138,7 @@
 				42A61C9C1DD7BE7F009CA6E6 /* LaunchScreen.storyboard in Resources */,
 				42A61C991DD7BE7F009CA6E6 /* Assets.xcassets in Resources */,
 				42A61CAA1DD83BF5009CA6E6 /* TRDraggableImageView.xib in Resources */,
+				420F8B5C1DDB7DCA005D858D /* TRProfileViewController.xib in Resources */,
 				42A61C971DD7BE7F009CA6E6 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -145,6 +152,7 @@
 			files = (
 				42A61CA41DD7C230009CA6E6 /* TRCardsViewController.swift in Sources */,
 				42A61C921DD7BE7F009CA6E6 /* AppDelegate.swift in Sources */,
+				420F8B5B1DDB7DCA005D858D /* TRProfileViewController.swift in Sources */,
 				42A61CA81DD82017009CA6E6 /* TRDraggableImageView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -307,6 +315,7 @@
 				42A61CA21DD7BE7F009CA6E6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

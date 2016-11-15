@@ -15,15 +15,20 @@ class TRDraggableImageView: UIView {
     @IBOutlet weak var profilePhotoImageView: UIImageView!
     
     @IBOutlet var contentView: UIView!
-    
+    private var lastTranslation: CGPoint!
+
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!
         initSubviews()
+        layer.cornerRadius = 120
+//        layer.masksToBounds = true
+
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         initSubviews()
+
     }
     
     func initSubviews() {
@@ -35,84 +40,129 @@ class TRDraggableImageView: UIView {
         }
     
     @IBAction func onPan(_ panGestureRecognizer: UIPanGestureRecognizer) {
-        let point = panGestureRecognizer.location(in: self)
-        var xTranslation = panGestureRecognizer.translation(in: self).x
-        var velocity : CGPoint = panGestureRecognizer.velocity(in: self)
-        let angle  = xTranslation.degreesToRadians
-        let reverseAngle  = xTranslation.degreesToRadians * -1
+//        let point = panGestureRecognizer.location(in: self)
+//        var xTranslation = panGestureRecognizer.translation(in: self).x
+//        var velocity : CGPoint = panGestureRecognizer.velocity(in: self)
+//        let angle  = xTranslation.degreesToRadians
+//        let reverseAngle  = xTranslation.degreesToRadians * -1
+//
+//        switch panGestureRecognizer.state {
+//            
+//        case .began:
+//            
+//            profiePhotoImageViewOriginalCenter = profilePhotoImageView.center
+//
+//            
+//          
+//        case .changed:
+//            
+//            if point.y > self.frame.height/2
+//            {
+//                print("point is in lower half")
+//                
+//                
+//                if velocity.x > 0
+//                {
+//                    profilePhotoImageView.transform = CGAffineTransform(rotationAngle: CGFloat(reverseAngle))
+//                    profilePhotoImageView.center = CGPoint(x: profiePhotoImageViewOriginalCenter.x + xTranslation, y: profiePhotoImageViewOriginalCenter.y)
+//                    
+//                }
+//                else
+//                {
+//                    profilePhotoImageView.transform = CGAffineTransform(rotationAngle: CGFloat(reverseAngle))
+//                    profilePhotoImageView.center = CGPoint(x: profiePhotoImageViewOriginalCenter.x + xTranslation, y: profiePhotoImageViewOriginalCenter.y)
+//                    
+//                }
+//            }
+//            else
+//            {
+//                print("point is in upper half")
+//                
+//                
+//                if velocity.x > 0
+//                {
+//                    profilePhotoImageView.transform = CGAffineTransform(rotationAngle: CGFloat(angle))
+//                    profilePhotoImageView.center = CGPoint(x: profiePhotoImageViewOriginalCenter.x + xTranslation, y: profiePhotoImageViewOriginalCenter.y)
+//                    
+//                }
+//                else
+//                {
+//                    profilePhotoImageView.transform = CGAffineTransform(rotationAngle: CGFloat(angle))
+//                    profilePhotoImageView.center = CGPoint(x: profiePhotoImageViewOriginalCenter.x + xTranslation, y: profiePhotoImageViewOriginalCenter.y)
+//                    
+//                }
+//
+//            }
+//            
+//            
+//        case.ended:
+//            profilePhotoImageView.transform = CGAffineTransform(rotationAngle: CGFloat(0.degreesToRadians))
+//            profilePhotoImageView.center = profiePhotoImageViewOriginalCenter
+//
+//            if xTranslation > 50
+//            {
+//                UIView.animate(withDuration: 1.0, animations: {
+//                    self.profilePhotoImageView.center = CGPoint(x: self.contentView.frame.width * 1.5, y: self.profiePhotoImageViewOriginalCenter.y)
+//                })
+//            }
+//            else if xTranslation < -50{
+//                UIView.animate(withDuration: 1.0, animations: {
+//                    self.profilePhotoImageView.center = CGPoint(x: -1 * (self.contentView.frame.width * 1.5), y: self.profiePhotoImageViewOriginalCenter.y)
+//                })
+//            }
+//            
+//
+//            
+//        default:
+//            return
+//            
+//        }
+//    }
+    
+        let translation = panGestureRecognizer.translation(in: contentView)
+        let location = panGestureRecognizer.location(in: contentView)
+        
+        // Test to see if the location is top or bottom half
+        let topHalf = CGRect(x: profilePhotoImageView.frame.origin.x, y: profilePhotoImageView.frame.origin.y, width: profilePhotoImageView.frame.width, height: profilePhotoImageView.frame.height / 2)
+        let bottomHalf = CGRect(x: profilePhotoImageView.frame.origin.x, y: topHalf.maxY, width: profilePhotoImageView.frame.width, height: profilePhotoImageView.frame.height / 2)
+        // If bottom half, rotate opposite
+        let rotationDirection = bottomHalf.contains(location) ? CGFloat(-1) : CGFloat(1)
+        let angle  = translation.x.degreesToRadians
 
-        switch panGestureRecognizer.state {
-            
-        case .began:
-            
+        
+        if panGestureRecognizer.state == .began {
             profiePhotoImageViewOriginalCenter = profilePhotoImageView.center
+            lastTranslation = translation
+        } else if panGestureRecognizer.state == .changed {
+            // Move Y
+            profilePhotoImageView.center = CGPoint(x: profiePhotoImageViewOriginalCenter.x + translation.x , y: profiePhotoImageViewOriginalCenter.y)
+            
+            // Rotate
+            let rotation = rotationDirection * (translation.x - lastTranslation.x).degreesToRadians
+//            profilePhotoImageView.transform = profilePhotoImageView.transform.rotated(by: rotation)
+            profilePhotoImageView.transform = CGAffineTransform(rotationAngle: CGFloat(angle))
 
+            lastTranslation = translation
             
-          
-        case .changed:
-            
-            if point.y > self.frame.height/2
-            {
-                print("point is in lower half")
-                
-                
-                if velocity.x > 0
-                {
-                    profilePhotoImageView.transform = CGAffineTransform(rotationAngle: CGFloat(reverseAngle))
-                    profilePhotoImageView.center = CGPoint(x: profiePhotoImageViewOriginalCenter.x + xTranslation, y: profiePhotoImageViewOriginalCenter.y)
-                    
+        } else if panGestureRecognizer.state == .ended {
+            UIView.animate(withDuration: 0.25, animations: {
+                if translation.x > 50 {
+                    UIView.animate(withDuration: 0.5, animations: {
+                        self.profilePhotoImageView.center = CGPoint(x: self.contentView.frame.width * 2, y: self.profilePhotoImageView.center.y)
+                    })
+                } else if translation.x < -50 {
+                    UIView.animate(withDuration: 0.5, animations: {
+                        self.profilePhotoImageView.center = CGPoint(x: -self.contentView.frame.width * 2, y: self.profilePhotoImageView.center.y)
+                    })
+                } else {
+                    // Return to center
+                    self.profilePhotoImageView.center = self.profiePhotoImageViewOriginalCenter
+                    // Reset transfrom (to original)
+                    self.profilePhotoImageView.transform = CGAffineTransform.identity
                 }
-                else
-                {
-                    profilePhotoImageView.transform = CGAffineTransform(rotationAngle: CGFloat(reverseAngle))
-                    profilePhotoImageView.center = CGPoint(x: profiePhotoImageViewOriginalCenter.x + xTranslation, y: profiePhotoImageViewOriginalCenter.y)
-                    
-                }
-            }
-            else
-            {
-                print("point is in upper half")
-                
-                
-                if velocity.x > 0
-                {
-                    profilePhotoImageView.transform = CGAffineTransform(rotationAngle: CGFloat(angle))
-                    profilePhotoImageView.center = CGPoint(x: profiePhotoImageViewOriginalCenter.x + xTranslation, y: profiePhotoImageViewOriginalCenter.y)
-                    
-                }
-                else
-                {
-                    profilePhotoImageView.transform = CGAffineTransform(rotationAngle: CGFloat(angle))
-                    profilePhotoImageView.center = CGPoint(x: profiePhotoImageViewOriginalCenter.x + xTranslation, y: profiePhotoImageViewOriginalCenter.y)
-                    
-                }
-
-            }
-            
-            if xTranslation > 50
-            {
-                UIView.animate(withDuration: 0.8, animations: {
-                    self.profilePhotoImageView.center = CGPoint(x: self.profiePhotoImageViewOriginalCenter.x + 200, y: self.profiePhotoImageViewOriginalCenter.y)
-                })
-            }
-            else if xTranslation < -50{
-                UIView.animate(withDuration: 0.8, animations: {
-                    self.profilePhotoImageView.center = CGPoint(x: self.profiePhotoImageViewOriginalCenter.x - 200, y: self.profiePhotoImageViewOriginalCenter.y)
-                })
-            }
-
-            
-        case.ended:
-            profilePhotoImageView.transform = CGAffineTransform(rotationAngle: CGFloat(0.degreesToRadians))
-            profilePhotoImageView.center = profiePhotoImageViewOriginalCenter
-
-            
-        default:
-            return
-            
+            })
         }
     }
-    
 
 }
 
